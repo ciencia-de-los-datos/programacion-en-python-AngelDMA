@@ -21,7 +21,22 @@ def pregunta_01():
     214
 
     """
-    return
+
+    import csv
+
+    with open("data.csv", "r") as file:
+        truck_events = file.readlines()
+
+    truck_events = [line.replace("\n", "") for line in truck_events]
+
+    truck_events = [line.split("\t") for line in truck_events]
+
+    sum = 0
+
+    for i in range(len(truck_events)):
+        sum += int(truck_events[i][1])
+
+    return sum
 
 
 def pregunta_02():
