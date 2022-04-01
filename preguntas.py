@@ -54,7 +54,23 @@ def pregunta_02():
     ]
 
     """
-    return
+    import csv
+
+    with open("data.csv", "r") as file:
+        truck_events = file.readlines()
+
+    truck_events = [line.replace("\n", "") for line in truck_events]
+
+    truck_events = [line.split("\t") for line in truck_events]
+
+    truck_events[:2]
+
+    drivers = [row[0] for row in truck_events]
+    drivers = [(x,drivers.count(x)) for x in set(drivers)]
+
+    drivers = sorted(drivers, key=lambda tup:(tup[0]))
+
+    return drivers
 
 
 def pregunta_03():
