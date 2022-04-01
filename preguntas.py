@@ -13,6 +13,8 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 """
 
 
+from datetime import date
+from itertools import count
 from lib2to3.pgen2 import driver
 from sqlite3 import Row
 
@@ -120,7 +122,21 @@ def pregunta_04():
     ]
 
     """
-    return
+    with open("data.csv", "r") as file:
+        datos = file.readlines()
+
+    datos = [line.replace("\n", "") for line in datos]
+    datos = [line.split("\t") for line in datos]
+
+    datos = [row[2] for row in datos]
+
+    datos = [row.split("-") for row in datos]
+
+    datos = [row[1] for row in datos]
+
+    Resultado = [(row, datos.count(row)) for row in sorted(set(datos))]
+
+    return Resultado
 
 
 def pregunta_05():
