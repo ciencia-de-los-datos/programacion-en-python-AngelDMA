@@ -83,7 +83,19 @@ def pregunta_03():
     ]
 
     """
-    return
+    with open("data.csv", "r") as file:
+        datos = file.readlines()
+
+    datos = [(row[0],int(row[2])) for row in datos]
+
+    resultado = {row[0]:0 for row in sorted(datos)}
+
+    for row in datos:
+        resultado[row[0]] = resultado[row[0]]+row[1]
+
+    resultado = list(zip(resultado.keys(),resultado.values()))
+
+    return resultado
 
 
 def pregunta_04():
