@@ -154,7 +154,21 @@ def pregunta_05():
     ]
 
     """
-    return
+    with open("data.csv", "r") as file:
+        datos = file.readlines()
+
+    datos = [line.replace("\n", "") for line in datos]
+    datos = [line.split("\t") for line in datos]
+    #datos = sorted(set([row[0] for row in datos]))
+    
+    Resultado = {row[0]:[] for row in (sorted(set([row[0] for row in datos])))}
+
+    for row in datos:
+        Resultado[row[0]].append(int(row[1]))
+
+    Resultado = list(zip(Resultado.keys(),[max(row) for row in  Resultado.values()],[min(row) for row in  Resultado.values()]))
+
+    return Resultado
 
 
 def pregunta_06():
