@@ -13,6 +13,10 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 """
 
 
+from lib2to3.pgen2 import driver
+from sqlite3 import Row
+
+
 def pregunta_01():
     """
     Retorne la suma de la segunda columna.
@@ -54,23 +58,14 @@ def pregunta_02():
     ]
 
     """
-    import csv
-
     with open("data.csv", "r") as file:
-        truck_events = file.readlines()
+        datos = file.readlines()
 
-    truck_events = [line.replace("\n", "") for line in truck_events]
+    datos = [row[0] for row in datos]
 
-    truck_events = [line.split("\t") for line in truck_events]
+    datos = [(x,datos.count(x)) for x in (sorted(set(datos)))]
 
-    truck_events[:2]
-
-    drivers = [row[0] for row in truck_events]
-    drivers = [(x,drivers.count(x)) for x in set(drivers)]
-
-    drivers = sorted(drivers, key=lambda tup:(tup[0]))
-
-    return drivers
+    return datos
 
 
 def pregunta_03():
