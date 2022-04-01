@@ -238,7 +238,22 @@ def pregunta_07():
     ]
 
     """
-    return
+    with open("data.csv", "r") as file:
+        datos = file.readlines()
+
+    datos = [line.replace("\n", "") for line in datos]
+    datos = [line.split("\t") for line in datos]
+
+    valores = sorted(set([int(row[1]) for row in datos]))
+
+    dicc = {row:[] for row in valores}
+
+    for row in datos:
+        dicc[int(row[1])].append(row[0])
+
+    Resultado = list(zip(dicc.keys(),dicc.values()))
+
+    return Resultado
 
 
 def pregunta_08():
