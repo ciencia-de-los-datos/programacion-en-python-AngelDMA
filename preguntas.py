@@ -159,7 +159,6 @@ def pregunta_05():
 
     datos = [line.replace("\n", "") for line in datos]
     datos = [line.split("\t") for line in datos]
-    #datos = sorted(set([row[0] for row in datos]))
     
     Resultado = {row[0]:[] for row in (sorted(set([row[0] for row in datos])))}
 
@@ -193,7 +192,29 @@ def pregunta_06():
     ]
 
     """
-    return
+
+    with open("data.csv", "r") as file:
+        datos = file.readlines()
+
+    datos = [line.replace("\n", "") for line in datos]
+    datos = [line.split("\t") for line in datos]
+
+    datos = [row[4].split(",") for row in datos]
+
+    total = []
+
+    for row in datos:
+        for line in row:
+            total.append(line.split(":"))
+
+    dicc = {row[0]:[] for row in sorted(total)}
+
+    for row in total:
+        dicc[row[0]].append(int(row[1]))
+    
+    Resultado = list(zip(dicc.keys(),[min(row) for row in  dicc.values()],[max(row) for row in  dicc.values()]))
+
+    return Resultado
 
 
 def pregunta_07():
