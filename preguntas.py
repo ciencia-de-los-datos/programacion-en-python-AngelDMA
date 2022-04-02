@@ -360,7 +360,15 @@ def pregunta_10():
 
 
     """
-    return
+    with open("data.csv", "r") as file:
+        datos = file.readlines()
+
+    datos = [line.replace("\n", "") for line in datos]
+    datos = [line.split("\t") for line in datos]
+
+    Resultado = [(row[0],len(row[3].split(",")),len(row[4].split(","))) for row in datos]
+
+    return Resultado
 
 
 def pregunta_11():
