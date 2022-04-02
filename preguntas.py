@@ -429,4 +429,23 @@ def pregunta_12():
     }
 
     """
-    return
+    with open("data.csv", "r") as file:
+        datos = file.readlines()
+
+    datos = [line.replace("\n", "") for line in datos]
+    datos = [line.split("\t") for line in datos]
+
+    datos = [list(zip(row[0]*len(row[4].split(",")),row[4].split(","))) for row in datos]
+
+    Resultado = []
+
+    for i in datos:
+        for y in i:
+            Resultado.append((y[0],y[1].split(":")[1]))
+    
+    dicc = {row[0]:0 for row in sorted(Resultado)}
+
+    for x in Resultado:
+        dicc[x[0]] += int(x[1])
+
+    return dicc
