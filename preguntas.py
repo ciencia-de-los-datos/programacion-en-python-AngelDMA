@@ -321,7 +321,25 @@ def pregunta_09():
     }
 
     """
-    return
+    with open("data.csv", "r") as file:
+        datos = file.readlines()
+
+    datos = [line.replace("\n", "") for line in datos]
+    datos = [line.split("\t") for line in datos]
+
+    datos = [row[4].split(",") for row in datos]
+
+    total = []
+
+    for row in datos:
+        for line in row:
+            total.append(line.split(":"))
+    
+    llaves = [row[0] for row in total]
+
+    dicc = {key:llaves.count(key) for key in sorted(set(llaves))}
+
+    return dicc
 
 
 def pregunta_10():
