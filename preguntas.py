@@ -17,6 +17,7 @@ from datetime import date
 from itertools import count
 from lib2to3.pgen2 import driver
 from sqlite3 import Row
+from typing import OrderedDict
 
 
 def pregunta_01():
@@ -389,7 +390,28 @@ def pregunta_11():
 
 
     """
-    return
+    with open("data.csv", "r") as file:
+        datos = file.readlines()
+
+    datos = [line.replace("\n", "") for line in datos]
+    datos = [line.split("\t") for line in datos]
+
+    datos = [(row[1],row[3].split(",")) for row in datos]
+
+    datos = [list(zip(row[0]*len(row[1]), row[1])) for row in datos]
+
+    total = []
+
+    for x in datos:
+        for y in x:
+            total.append(y)
+    
+    dicc = dict(sorted({row[1]:0 for row in set(total)}.items()))
+
+    for x in total:
+        dicc[x[1]] = dicc[x[1]]+int(x[0])
+
+    return dicc
 
 
 def pregunta_12():
